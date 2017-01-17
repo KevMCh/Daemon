@@ -4,7 +4,7 @@ DAEMONPATH=/usr/local/bin/
 SERVICEFOLDER=Service/
 DAEMONFOLDER=Daemon/
 
-PERMISION=755
+PERMISSION=755
 
 BUILD=build/
 SRC=src/

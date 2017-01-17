@@ -21,8 +21,9 @@ existPIDFile(){
   fi
 }
 
+ARGV=$2
 callDaemon(){
-  $DAEMON
+  $DAEMON $ARGV
   PID=$(pgrep -f $DAEMON)
   echo $PID > $PIDFILE
 }
