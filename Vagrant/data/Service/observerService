@@ -1,0 +1,151 @@
+#!/bin/sh
+
+NAME=observer
+DAEMON=/usr/local/bin/$NAME
+PIDFILE=/var/run/$NAME.pid
+
+# State strings
+BASESTRING="The $NAME daemon is "
+DAEMONSTARTING="$BASESTRING starting."
+DAEMONRUNNING="$BASESTRING running."
+DAEMONNOTRUNNING="$BASESTRING not running"
+DAEMONSTOPED="$BASESTRING stoped"
+DAEMONUSAGE="Usage: $NAME {start|stop|restart|status}"
+
+existPIDFile(){
+  if [ -f "$PIDFILE" ];
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+callDaemon(){
+  $DAEMON
+  PID=$(pgrep -f $DAEMON)
+  echo $PID > $PIDFILE
+}
+
+isRunning(){
+  if [ -z "$(ps -A | grep $1)" ]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+start() {
+  existPIDFile
+  createdPIDFile=$?
+
+  if [ $createdPIDFile -eq 0 ]
+  then
+
+    PIDINFILE=$(cat $PIDFILE)
+    isRunning $PIDINFILE
+    running=$?
+
+    if [ $running -ne 0 ]
+    then
+      echo $DAEMONSTARTING
+      # Call to the daemon
+        callDaemon
+    else
+      echo $DAEMONRUNNING
+    fi
+
+  else
+    echo $DAEMONSTARTING
+    # Call to the daemon
+    callDaemon
+  fi
+}
+
+stop() {
+  existPIDFile
+  createdPIDFile=$?
+
+  if [ $createdPIDFile -eq 0 ]
+  then
+
+    PIDINFILE=$(cat $PIDFILE)
+    isRunning $PIDINFILE
+    running=$?
+
+    if [ $running -ne 0 ]
+    then
+
+      # devuelve distinto de cero
+      rm $PIDFILE
+
+      echo $DAEMONNOTRUNNING
+    else
+      kill $PIDINFILE
+
+      rm $PIDFILE
+
+      echo $DAEMONSTOPED
+    fi
+
+  else
+    echo $DAEMONNOTRUNNING
+  fi
+}
+
+restart() {
+  stop
+  start
+}
+
+status() {
+  existPIDFile
+  createdPIDFile=$?
+
+  if [ $createdPIDFile -eq 0 ]
+  then
+
+    PIDINFILE=$(cat $PIDFILE)
+    isRunning $PIDINFILE
+    running=$?
+
+    if [ $running -ne 0 ]
+    then
+      rm $PIDFILE
+      echo $DAEMONNOTRUNNING
+    else
+      echo $DAEMONRUNNING
+    fi
+
+  else
+    echo $DAEMONNOTRUNNING
+  fi
+}
+
+info(){
+  echo $DAEMONUSAGE
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+
+  stop)
+    stop
+    ;;
+
+  restart)
+    restart
+    ;;
+
+  status)
+    status
+    ;;
+
+  *)
+    info
+esac
+
+exit 0
