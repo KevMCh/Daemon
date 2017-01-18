@@ -1,8 +1,12 @@
 NAME=observer
 SERVICEPATH=/etc/init.d/
-DAEMONPATH=/usr/local/bin/
 SERVICEFOLDER=Service/
+
+DAEMONPATH=/usr/local/bin/
 DAEMONFOLDER=Daemon/
+
+SERVERFOLDER=Server/
+SERVERNAME=sneak
 
 PERMISSION=755
 
@@ -12,6 +16,7 @@ SRC=src/
 CC=gcc
 COPY=cp
 CHANGEPERMISSION=chmod
+RUN=.
 
 install: inotify
 	$(COPY) $(SERVICEFOLDER)$(NAME)Service $(SERVICEPATH)$(NAME)
@@ -19,4 +24,10 @@ install: inotify
 	$(COPY) $(DAEMONFOLDER)$(BUILD)$(NAME) $(DAEMONPATH)$(NAME)
 
 inotify:
-		$(CC) $(DAEMONFOLDER)$(SRC)$(NAME).c $(DAEMONFOLDER)$(SRC)main.c -o $(DAEMONFOLDER)$(BUILD)$(NAME)
+	$(CC) $(DAEMONFOLDER)$(SRC)$(NAME).c $(DAEMONFOLDER)$(SRC)main.c -o $(DAEMONFOLDER)$(BUILD)$(NAME)
+
+server:
+	$(CC) $(SERVERFOLDER)$(SRC)main.c -o $(SERVERFOLDER)$(BUILD)$(SERVERNAME)
+
+inotifyServer: inotify server
+	$(COPY) $(SERVERFOLDER)$(BUILD)$(SERVERNAME) $(DAEMONPATH)$(SERVERNAME)

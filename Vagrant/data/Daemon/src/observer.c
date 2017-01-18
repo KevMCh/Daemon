@@ -66,10 +66,6 @@ void showEvent(struct inotify_event *e) {
       syslog(LOG_NOTICE, "IN_ALL_EVENTS");
       break;
 
-    case IN_ALL_EVENTS:
-      syslog(LOG_NOTICE, "IN_ALL_EVENTS");
-      break;
-
     case IN_MOVE:
       syslog(LOG_NOTICE, "IN_MOVE");
       break;
