@@ -21,9 +21,12 @@ existPIDFile(){
   fi
 }
 
-ARGV=$2
+ARGV1=$2
+ARGV2=$3
+ARGV3=$4
 callDaemon(){
-  $DAEMON $ARGV
+  echo "llamamos al "
+  $DAEMON $ARGV1 $ARGV2 $ARGV3
   PID=$(pgrep -f $DAEMON)
   echo $PID > $PIDFILE
 }
@@ -50,9 +53,10 @@ start() {
 
     if [ $running -ne 0 ]
     then
+      echo "Ejecutamos"
       echo $DAEMONSTARTING
       # Call to the daemon
-        callDaemon
+      callDaemon
     else
       echo $DAEMONRUNNING
     fi
