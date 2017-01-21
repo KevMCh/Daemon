@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME=observer
+NAME=sneak
 DAEMON=/usr/local/bin/$NAME
 PIDFILE=/var/run/$NAME.pid
 
@@ -22,10 +22,8 @@ existPIDFile(){
 }
 
 ARGV1=$2
-ARGV2=$3
-ARGV3=$4
 callDaemon(){
-  $DAEMON $ARGV1 $ARGV2 $ARGV3
+  $DAEMON $ARGV1
   PID=$(pgrep -f $DAEMON)
   echo $PID > $PIDFILE
 }

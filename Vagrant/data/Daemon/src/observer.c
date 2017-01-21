@@ -4,117 +4,117 @@ void showEvent(struct inotify_event *e, int sockfd) {
   char *buffer = "";
   switch(e->mask & IN_ALL_EVENTS){
     case IN_ACCESS:
-      syslog(LOG_NOTICE, "IN_ACCESS");
+      // syslog(LOG_NOTICE, "IN_ACCESS");
       buffer = "IN_ACCESS";
       break;
 
 	  case IN_ATTRIB:
-      syslog(LOG_NOTICE, "IN_ATTRIB");
+      // syslog(LOG_NOTICE, "IN_ATTRIB");
       buffer = "IN_ATTRIB";
       break;
 
     case IN_CLOSE_WRITE:
-      syslog(LOG_NOTICE, "IN_CLOSE_WRITE");
+      // syslog(LOG_NOTICE, "IN_CLOSE_WRITE");
       buffer = "IN_CLOSE_WRITE";
       break;
 
     case IN_CLOSE_NOWRITE:
-      syslog(LOG_NOTICE, "IN_CLOSE_NOWRITE");
+      // syslog(LOG_NOTICE, "IN_CLOSE_NOWRITE");
       buffer = "IN_CLOSE_NOWRITE";
       break;
 
     case IN_CREATE:
-      syslog(LOG_NOTICE, "IN_CREATE");
+      // syslog(LOG_NOTICE, "IN_CREATE");
       buffer = "IN_CREATE";
       break;
 
     case IN_DELETE:
-      syslog(LOG_NOTICE, "IN_DELETE");
+      // syslog(LOG_NOTICE, "IN_DELETE");
       buffer = "IN_DELETE";
       break;
 
     case IN_DELETE_SELF:
-      syslog(LOG_NOTICE, "IN_DELETE_SELF");
+      // syslog(LOG_NOTICE, "IN_DELETE_SELF");
       buffer = "IN_DELETE_SELF";
       break;
 
     case IN_MODIFY:
-      syslog(LOG_NOTICE, "IN_MODIFY");
+      // syslog(LOG_NOTICE, "IN_MODIFY");
       buffer = "IN_MODIFY";
       break;
 
     case IN_MOVE_SELF:
-      syslog(LOG_NOTICE, "IN_MOVE_SELF");
+      // syslog(LOG_NOTICE, "IN_MOVE_SELF");
       buffer = "IN_MOVE_SELF";
       break;
 
     case IN_MOVED_FROM:
-      syslog(LOG_NOTICE, "IN_MOVE_FROM");
+      // syslog(LOG_NOTICE, "IN_MOVE_FROM");
       buffer = "IN_MOVE_FROM";
       break;
 
     case IN_MOVED_TO:
-      syslog(LOG_NOTICE, "IN_MOVE_TO");
+      // syslog(LOG_NOTICE, "IN_MOVE_TO");
       buffer = "IN_MOVE_TO";
       break;
 
     case IN_OPEN:
-      syslog(LOG_NOTICE, "IN_OPEN");
+      // syslog(LOG_NOTICE, "IN_OPEN");
       buffer = "IN_OPEN";
       break;
 
     case IN_ALL_EVENTS:
-      syslog(LOG_NOTICE, "IN_ALL_EVENTS");
+      // syslog(LOG_NOTICE, "IN_ALL_EVENTS");
       buffer = "IN_ALL_EVENTS";
       break;
 
     case IN_MOVE:
-      syslog(LOG_NOTICE, "IN_MOVE");
+      // syslog(LOG_NOTICE, "IN_MOVE");
       buffer = "IN_MOVE";
       break;
 
     case IN_CLOSE:
-      syslog(LOG_NOTICE, "IN_CLOSE");
+      // syslog(LOG_NOTICE, "IN_CLOSE");
       buffer = "IN_CLOSE";
       break;
 
     case IN_DONT_FOLLOW:
-      syslog(LOG_NOTICE, "IN_DONT_FOLLOW");
+      // syslog(LOG_NOTICE, "IN_DONT_FOLLOW");
       buffer = "IN_DONT_FOLLOW";
       break;
 
     case IN_MASK_ADD:
-      syslog(LOG_NOTICE, "IN_MASK_ADD");
+      // syslog(LOG_NOTICE, "IN_MASK_ADD");
       buffer = "IN_MASK_ADD";
       break;
 
     case IN_ONESHOT:
-      syslog(LOG_NOTICE, "IN_ONESHOT");
+      // syslog(LOG_NOTICE, "IN_ONESHOT");
       buffer = "IN_ONESHOT";
       break;
 
     case IN_ONLYDIR:
-      syslog(LOG_NOTICE, "IN_ONLYDIR");
+      // syslog(LOG_NOTICE, "IN_ONLYDIR");
       buffer = "IN_ONLYDIR";
       break;
 
     case IN_IGNORED:
-      syslog(LOG_NOTICE, "IN_IGNORED");
+      // syslog(LOG_NOTICE, "IN_IGNORED");
       buffer = "IN_IGNORED";
       break;
 
     case IN_ISDIR:
-      syslog(LOG_NOTICE, "IN_ISDR");
+      // syslog(LOG_NOTICE, "IN_ISDR");
       buffer = "IN_ISDR";
       break;
 
     case IN_Q_OVERFLOW:
-      syslog(LOG_NOTICE, "IN_Q_OVERFLOW");
+      // syslog(LOG_NOTICE, "IN_Q_OVERFLOW");
       buffer = "IN_Q_OVERFLOW";
       break;
 
     case IN_UNMOUNT:
-      syslog(LOG_NOTICE, "IN_UNMOUNT");
+      // syslog(LOG_NOTICE, "IN_UNMOUNT");
       buffer = "IN_UNMOUNT";
       break;
   }
