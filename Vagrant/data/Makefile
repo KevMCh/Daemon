@@ -14,13 +14,14 @@ BUILD=build/
 SRC=src/
 
 CC=gcc
+FLAGTHREAD=-pthread
 COPY=cp
 CHANGEPERMISSION=chmod
 RUN=.
 
-all: install inotifyServer
+all: installInotify installInotifyServer
 
-install: inotify
+installInotify: inotify
 	$(COPY) $(SERVICEFOLDER)$(NAME)Service $(SERVICEPATH)$(NAME)
 	$(CHANGEPERMISSION) $(PERMISSION) $(SERVICEPATH)$(NAME)
 	$(COPY) $(DAEMONFOLDER)$(BUILD)$(NAME) $(DAEMONPATH)$(NAME)
@@ -29,9 +30,9 @@ inotify:
 	$(CC) $(DAEMONFOLDER)$(SRC)$(NAME).c $(DAEMONFOLDER)$(SRC)main.c -o $(DAEMONFOLDER)$(BUILD)$(NAME)
 
 server:
-	$(CC) $(SERVERFOLDER)$(SRC)$(SERVERNAME).c $(SERVERFOLDER)$(SRC)main.c -o $(SERVERFOLDER)$(BUILD)$(SERVERNAME)
+	$(CC) $(FLAGTHREAD) $(SERVERFOLDER)$(SRC)$(SERVERNAME).c $(SERVERFOLDER)$(SRC)main.c -o $(SERVERFOLDER)$(BUILD)$(SERVERNAME)
 
-inotifyServer: inotify server
+installInotifyServer: inotify server
 	$(COPY) $(SERVERFOLDER)$(BUILD)$(SERVERNAME) $(DAEMONPATH)$(SERVERNAME)
 	$(COPY) $(SERVICEFOLDER)$(SERVERNAME)Service $(SERVICEPATH)$(SERVERNAME)
 	$(CHANGEPERMISSION) $(PERMISSION) $(SERVICEPATH)$(SERVERNAME)

@@ -1,12 +1,31 @@
 #include "utils.h"
 
+void *readBuffer(void *socket_desc) {
+  int i;
+  char buffer[256];
+
+  while(1){
+    bzero(buffer, 256);
+    // Read
+    i = read(*(int *)socket_desc, buffer, 255);
+
+    if(i > 0) {
+      syslog(LOG_NOTICE, "%s", buffer);
+    } else {
+      if(i == 0){
+        break;
+      } else {
+        return;
+      }
+    }
+  }
+}
+
 void sneak(int argc, char *argv[]) {
 
   int sockfd, newsockfd, portnumber;
   socklen_t clilongitud;
-  char buffer[256];
   struct sockaddr_in serv_addr, cli_addr;
-  int i;
 
   // Create the socket
   sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -28,26 +47,18 @@ void sneak(int argc, char *argv[]) {
   clilongitud = sizeof(cli_addr);
 
   // Accept the connections
-  newsockfd = accept(sockfd, (struct sockaddr*)&cli_addr, &clilongitud);
+
+  while(newsockfd = accept(sockfd, (struct sockaddr*)&cli_addr, &clilongitud)) {
+
+    pthread_t sniffer_thread;
+
+    if(pthread_create( &sniffer_thread , NULL,  readBuffer, (void*) &newsockfd) < 0) {
+      syslog(LOG_NOTICE, "Error: Can't create a thread");
+    }
+  }
 
   if(newsockfd < 0){
     syslog(LOG_NOTICE, "Error socket");
-  }
-
-  while(1){
-    bzero(buffer, 256);
-    // Read
-    i = read(newsockfd, buffer, 255);
-
-    if(i > 0) {
-      syslog(LOG_NOTICE, "%s", buffer);
-    } else {
-      if(i == 0){
-        break;
-      } else {
-        return;
-      }
-    }
   }
 
   // Close the connection

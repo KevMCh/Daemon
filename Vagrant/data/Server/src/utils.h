@@ -6,3 +6,5 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <syslog.h>
+#include <pthread.h>
+#include <sys/socket.h>
